@@ -1,0 +1,114 @@
+[
+{
+    "model": "mesa.mesajob",
+    "pk": 0,
+    "fields": {
+        "name": "Host Discovery Scans",
+        "command": "MESA-Toolkit -o discovery -p {{ project_name }} -i {{ scope }} -e {{ exclusions }}",
+        "status": "Not Started",
+        "pid": null,
+        "started_at": null,
+        "finished_at": null,
+        "relative_output_folder": "Port_Scans/DISCOVERY/",
+        "visible": true
+    }
+},
+{
+    "model": "mesa.mesajob",
+    "pk": 1,
+    "fields": {
+        "name": "SMB Signing Checks",
+        "command": "MESA-Toolkit -o smb_signing_check -p {{ project_name }}",
+        "status": "Not Started",
+        "pid": null,
+        "started_at": null,
+        "finished_at": null,
+        "relative_output_folder": "Insecure_Default_Configuration/SMB_Signing/",
+        "visible": true
+    }
+},
+{
+    "model": "mesa.mesajob",
+    "pk": 2,
+    "fields": {
+        "name": "Web Application Enumeration",
+        "command": "MESA-Toolkit -o aquatone -p {{ project_name }}",
+        "status": "Not Started",
+        "pid": null,
+        "started_at": null,
+        "finished_at": null,
+        "relative_output_folder": "Web_App_Enumeration/",
+        "visible": true
+    }
+},
+{
+    "model": "mesa.mesajob",
+    "pk": 3,
+    "fields": {
+        "name": "Encryption Check",
+        "command": "MESA-Toolkit -o encryption_check -p {{ project_name }}",
+        "status": "Not Started",
+        "pid": null,
+        "started_at": null,
+        "finished_at": null,
+        "relative_output_folder": "Encryption_Check/SSL_TLS_Encryption_Cipher/",
+        "visible": true
+    }
+},
+{
+    "model": "mesa.mesajob",
+    "pk": 4,
+    "fields": {
+        "name": "Default Logins Check",
+        "command": "MESA-Toolkit -o default_logins -p {{ project_name }}",
+        "status": "Not Started",
+        "pid": null,
+        "started_at": null,
+        "finished_at": null,
+        "relative_output_folder": "Insecure_Default_Configuration/Default_Logins/",
+        "visible": true
+    }
+},
+{
+    "model": "mesa.mesajob",
+    "pk": 5,
+    "fields": {
+        "name": "Vulnerability Scan",
+        "command": "MESA-Toolkit -o vuln_scans -p {{ project_name }}",
+        "status": "Not Started",
+        "pid": null,
+        "started_at": null,
+        "finished_at": null,
+        "relative_output_folder": "Vulnerability_Scans/",
+        "visible": true
+    }
+},
+{
+    "model": "mesa.mesajob",
+    "pk": 6,
+    "fields": {
+        "name": "Full Port Scan",
+        "command": "MESA-Toolkit -o full -p {{ project_name }} -e {{ exclusions }}",
+        "status": "Not Started",
+        "pid": null,
+        "started_at": null,
+        "finished_at": null,
+        "relative_output_folder": "Port_Scans/FULL/",
+        "visible": true
+    }
+},
+{
+    "model": "mesa.mesajob",
+    "pk": 7,
+    "fields": {
+        "name": "ALL_CHECKS",
+        "command": "MESA-Toolkit --project-name {{ project_name }} -i {{ scope }} -e {{ exclusions }} --domain {{ domain_fqdn }} --domain-controller {{ domain_controller }} -du {{ domain_user }} -dp {{ domain_password }} -nu {{ neo4j_user }} -np {{ neo4j_password }} -o all_checks",
+        "status": "Not Started",
+        "pid": null,
+        "started_at": null,
+        "finished_at": null,
+        "relative_output_folder": "./",
+        "visible": false
+    }
+}
+]

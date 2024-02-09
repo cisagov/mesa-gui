@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}MESA{% endblock %}
+
+{% block styles %}
+  <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-8">
+        <!-- Tables Card -->
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">MESA Jobs</h6>
+          </div>
+          <div id="jobTable" class="card-body">
+            <!-- Populated by Javascript -->
+          </div>
+        </div>
+      </div>
+      <!-- End Tables Card -->
+      <div class="col-4">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Control</h6>
+          </div>
+          <div id="allChecksCard" class="card-body">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Page Content -->
+
+  <!-- Job Info Modal-->
+  <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModal"
+  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="infoModalTitle">{{ job.name }}</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body" id="infoModalBody">Loading...</div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- Delete Data Modal-->
+  <div class="modal fade" id="deletionModal" tabindex="-1" role="dialog" aria-labelledby="deletionModal"
+  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title text-white" id="deletionModalTitle">Loading...</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body" id="deletionModalBody">Loading...</div>
+            <div class="modal-footer">
+                <button id="btnDeletionModalDestroy" class="btn btn-danger" type="button" data-dismiss="modal" data-url="#" data-reload="false" onclick="jobButtonEventHandler(this, false)">Destroy</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+  function updateJobTable(updateTimer=true) {
+    $.ajax({
+      url: '{% url "dashboard_all_checks_card" %}',
+      success: function(data) {
+        $('#allChecksCard').html(data);
+      }
+    });
+
+    $.ajax({
+      url: '{% url "dashboard_job_table" %}',
+      success: function(data) {
+        $('#jobTable').html(data);
+      },
+      complete: function() {
+        if (updateTimer) {
+          // Schedule the next request when the current one's complete
+          console.log("Updating content...");
+          setTimeout(updateJobTable, 5000);
+        }
+      }
+    });
+  }
+
+  updateJobTable();
+
+  function infoModal(jobId) {
+    const contentTitle = document.getElementById('infoModalTitle')
+    const contentBody = document.getElementById('infoModalBody')
+    {% for job in jobs %}
+      var testJobId = '{{ job.id }}'
+      if (jobId == testJobId) {
+        contentTitle.innerHTML = "{{ job.name }}"
+        contentBody.innerHTML = "{{ job.get_command }}"
+      }
+    {% endfor %}
+  }
+
+  function deletionModal(jobId, url) {
+    const contentTitle = document.getElementById('deletionModalTitle');
+    const contentBody = document.getElementById('deletionModalBody');
+    const deletionButton = document.getElementById('btnDeletionModalDestroy');
+    {% for job in jobs %}
+      var testJobId = '{{ job.id }}'
+      if (jobId == testJobId) {
+        contentTitle.innerHTML = "<strong>⚠️ Danger</strong>: Deleting Data for {{ job.name }}"
+        contentBody.innerHTML = "Are you sure you want to delete all data for {{ job.name }}? This action is irreversible, and the data cannot be recovered without re-running the job in it's entirety."
+        deletionButton.dataset.url = url;
+      }
+    {% endfor %}
+  }
+
+  function jobButtonEventHandler(button, disable=true) {
+    if (JSON.parse(disable)) {
+      button.disabled = true;
+    }
+    const url = button.getAttribute('data-url');
+    const reload = JSON.parse(button.getAttribute('data-reload'));
+    makePostRequest(url, reload);
+  }
+
+  function makePostRequest(url, reload) {
+      fetch(url, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': '{{ csrf_token }}',
+          },
+          body: JSON.stringify({}),
+      })
+      .then(response => response.json())
+      .then(data => {
+          // Handle the response data (if needed)
+          if (reload == true) {
+            location.reload()
+          }
+      })
+      .catch(error => {
+          // Handle any errors that occurred during the request
+          console.error('Error:', error);
+      });
+  }
+
+</script>
+{% endblock %}

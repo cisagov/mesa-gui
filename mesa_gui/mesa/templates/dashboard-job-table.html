@@ -1,0 +1,60 @@
+<!-- Table -->
+<div class="table-responsive">
+  {% load tz %}
+  {% get_current_timezone as TIMEZONE %}
+  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Start Time ({{ TIMEZONE }})</th>
+              <th class="text-center">Finish Time ({{ TIMEZONE }})</th>
+              <th class="text-center">PID</th>
+              <th class="text-center">Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for job in jobs %}
+          <tr>
+            {% with status=job.update_status %}
+            <td>{{ job.name }}</td>
+            <td class="text-center">
+              {% if status == "Complete" %}
+              <span class="badge badge-pill badge-success">
+              {% elif status == "Running" %}
+              <span class="badge badge-pill badge-warning">
+              {% elif status == "Queued" %}
+              <span class="badge badge-pill badge-secondary">
+              {% else %}
+              <span class="badge badge-pill badge-danger">
+              {% endif %}{{ status }}</span></td>
+            <td class="text-center">{{ job.started_at }}</td>
+            <td class="text-center">{{ job.finished_at }}</td>
+            <td class="text-center">{{ job.get_pid }}</td>
+            <td class="text-center">
+              <button class="btn btn-success btn-circle btn-sm mx-2 btn-all-jobs" data-url="{% url 'job_run' job.id %}" data-reload="false" onclick="jobButtonEventHandler(this)" {% if status == "Running" %}disabled{% endif %}>
+                <i class="fas fa-play"></i>
+              </button>
+              <button class="btn btn-danger btn-circle btn-sm mx-2 btn-all-jobs" data-url="{% url 'job_stop' job.id %}" data-reload="false" onclick="jobButtonEventHandler(this)" {% if status != "Running" %}disabled{% endif %}>
+                <i class="fas fa-stop"></i>
+              </button>
+              {% if status == "Complete" %}
+              <a class="btn btn-success btn-circle btn-sm mx-2 btn-all-jobs" href="{% url 'job_download_data' job.id %}" {% if status == "Running" %}disabled{% endif %}>
+                <i class="fas fa-download"></i>
+              </a>
+              {% endif %}
+              <button class="btn btn-danger btn-circle btn-sm mx-2" data-toggle="modal" data-target="#deletionModal" data-job-id="{{ job.id }}" onclick="deletionModal('{{ job.id }}', '{% url 'job_delete_data' job.id %}')" {% if job.is_running %}disabled{% endif %}> <!-- data-reload="false"-->
+                <i class="fas fa-trash"></i>
+              </button>
+              <button class="btn btn-primary btn-circle btn-sm mx-2" data-toggle="modal" data-target="#infoModal" data-job-id="{{ job.id }}" onclick="infoModal('{{ job.id }}')">
+                <i class="fas fa-info"></i>
+              </button>
+            </td>
+            {% endwith %}
+        </tr>
+      {% endfor %}
+
+      </tbody>
+  </table>
+</div>
+<!-- End Tables -->

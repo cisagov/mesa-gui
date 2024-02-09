@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}MESA - Settings{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+
+{% block content %}
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+    <!-- Card -->
+    <div class="card shadow mb-4">
+      <!-- Card Header -->
+      <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Settings</h6>
+      </div>
+      <!-- End Card Header -->
+
+      <!-- Card Body -->
+      <div class="card-body">
+        <form method="post" class="user" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group row">
+              <div class="col-12">
+                  <label for="project_name">Project Name</label>
+                  <input type="text" class="form-control form-control-user" id="project_name"
+                      name="project_name" placeholder="RV####" value="{{ settings.project_name }}">
+              </div>
+              <div class="col-12">
+                <label for="customer_name">Customer Name</label>
+                <input type="text" class="form-control form-control-user" id="customer_name"
+                     name="customer_name" placeholder="Customer Name" value="{{ settings.customer_name }}">
+            </div>
+            <div class="col-12">
+              <label for="customer_initials">Customer Initials</label>
+              <input type="text" class="form-control form-control-user" id="customer_initials"
+                   name="customer_initials" placeholder="IoC" value="{{ settings.customer_initials }}">
+            </div>
+          </div>
+          <div class="form-group row">
+              <div class="col-sm-6">
+                  <label for="scope">In-Scope Systems</label>
+                  <textarea class="form-control" id="scope" name="scope" rows="8">{{ settings.scope }}</textarea>
+              </div>
+              <div class="col-sm-6">
+                  <label for="exclusions">Excluded Systems</label>
+                  <textarea class="form-control" id="exclusions" name="exclusions" rows="8">{{ settings.exclusions }}</textarea>
+              </div>
+          </div>
+          <div class="form-group row">
+              <div class="col-3">
+                <label for="scope_file">Update In-Scope Systems from File</label>
+              </div>
+              <div class="col-3">
+                <input type="file" class="form-control-file" name="scope_file" id="scope_file">
+              </div>
+              <div class="col-3">
+                <label for="exclusions_file">Update Excluded Systems from File</label>
+              </div>
+              <div class="col-3">
+                <input type="file" class="form-control-file" name="exclusions_file" id="exclusions_file">
+              </div>
+          </div>
+
+          <!-- Temporary Removal
+          <div class="form-group row">
+              <div class="col-sm-6">
+                  <label for="domain_fqdn">Domain FQDN</label>
+                  <input type="text" class="form-control form-control-user" id="domain_fqdn"
+                       name="domain_fqdn" placeholder="domain.contoso.local" value="{{ settings.domain_fqdn }}">
+              </div>
+              <div class="col-sm-6">
+                <label for="domain_controller">Domain Controller IP</label>
+                <input type="text" class="form-control form-control-user" id="domain_controller"
+                     name="domain_controller" placeholder="1.1.1.1" value="{{ settings.domain_controller }}">
+              </div>
+          </div>
+          <div class="form-group row">
+              <div class="col-sm-6">
+                  <label for="domain_user">Domain User</label>
+                  <input type="text" class="form-control form-control-user" id="domain_user"
+                       name="domain_user" placeholder="username" value="{{ settings.domain_user }}">
+              </div>
+              <div class="col-sm-6">
+                <label for="domain_password">Domain Password</label>
+                <input type="password" class="form-control form-control-user" id="domain_password"
+                     name="domain_password" placeholder="password" value="{{ settings.domain_password }}">
+              </div>
+          </div>
+          <div class="form-group row">
+              <div class="col-sm-6">
+                  <label for="neo4j_user">Neo4j User</label>
+                  <input type="text" class="form-control form-control-user" id="neo4j_user"
+                       name="neo4j_user" placeholder="neo4j" value="{{ settings.neo4j_user }}">
+              </div>
+              <div class="col-sm-6">
+                <label for="neo4j_password">Neo4j Password</label>
+                <input type="password" class="form-control form-control-user" id="neo4j_password"
+                     name="neo4j_password" placeholder="password" value="{{ settings.neo4j_password }}">
+              </div>
+          </div>
+          -->
+          <div class="form-group row" style="margin-top: 5rem;">
+            <div class="col-sm-8 offset-2">
+              <button class="btn btn-primary btn-user btn-block">
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- End Card Body -->
+    </div>
+    <!-- End Card -->
+  </div>
+  <!-- End Page Content -->
+{% endblock %}

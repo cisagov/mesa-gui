@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "mesa-gui"
+version = "0.1.0"
+description = ""
+authors = ["Adam <1392689+coffeegist@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "mesa_gui"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.4"
+pytz = "^2023.3"
+psutil = "^5.9.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

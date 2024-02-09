@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}MESA{% endblock %}
+
+
+{% block content %}
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-4 offset-4 text-center">
+        <!-- Tables Card -->
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">MESA Login</h6>
+          </div>
+          <div id="jobTable" class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              {% for error in form.non_field_errors %}
+                <div class="alert alert-danger col-10 offset-1" role="alert">
+                  {{ error }}
+                </div>
+              {% endfor %}
+              {% for field in form %}
+                {% if field.errors %}
+                  <div class="alert alert-danger col-10 offset-1" role="alert">
+                    {% for error in field.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+
+              <div class="col-10 offset-1">
+                <p>
+                  {{ form.username.label }}
+                  {{ form.username }}
+                </p>
+                <p>
+                  {{ form.password.label }}
+                  {{ form.password }}
+                </p>
+                <button type="submit" class="btn btn-primary">Login</button>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Page Content -->
+
+{% endblock %}

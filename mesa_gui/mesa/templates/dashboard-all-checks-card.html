@@ -1,0 +1,24 @@
+<div class="row">
+  <div id="allChecksCard" class="col-12">
+
+    {% if all_checks_job.update_status == "Running" %}
+    <button id="" class="btn btn-success btn-block btn-lg mb-2 placeholder-glow" disabled>
+      <i class="fas fa-play"></i> Running All Checks...
+    </button>
+    <button id="stopAllJobs" data-url="{% url 'job_stop_all' %}" data-reload="false" class="btn btn-danger btn-block btn-lg mb-2 btn-all-jobs" onclick="jobButtonEventHandler(this)">
+      <i class="fas fa-stop"></i> Stop All Checks
+    </button>
+  </div>
+    {% else %}
+    <button id="runAllJobs" data-url="{% url 'job_run_all' %}" data-reload="false" class="btn btn-success btn-block btn-lg mb-2 btn-all-jobs" onclick="jobButtonEventHandler(this)">
+      <i class="fas fa-play"></i> Run All Checks
+    </button>
+    <a class="btn btn-success btn-block btn-lg mb-2" href="{% url 'job_download_data' all_checks_job.id %}">
+      <i class="fas fa-download"></i> Download All
+    </a>
+    <a class="btn btn-success btn-block btn-lg mb-2" href="{% url 'job_generate_report' %}">
+      <i class="fas fa-download"></i> Download Report
+    </a>
+  </div>
+    {% endif %}
+</div>
