@@ -11,7 +11,7 @@ python = "^3.11"
 django = "^4.2.4"
 pytz = "^2023.3"
 psutil = "^5.9.5"
-
+django-sslserver = "^0.22"
 
 [build-system]
 requires = ["poetry-core"]
