@@ -24,12 +24,6 @@ class Settings(models.Model):
     project_name = models.CharField(max_length=50)
     scope= models.TextField(blank=False)
     exclusions = models.TextField(blank=True)
-    domain_fqdn = models.CharField(max_length=255)
-    domain_controller = models.CharField(max_length=255)
-    domain_user = models.CharField(max_length=255)
-    domain_password = models.CharField(max_length=255)
-    neo4j_user = models.CharField(max_length=255)
-    neo4j_password = models.CharField(max_length=255)
     customer_name = models.CharField(max_length=255,default="Acme Corporation")
     customer_initials = models.CharField(max_length=20,default="ACME")
 
@@ -99,12 +93,6 @@ class MesaJob(models.Model):
             "project_name": settings.project_name,
             "scope": os.path.join(MesaJob.get_project_directory(), MesaJob.MESA_JOB_FILE_SCOPE),
             "exclusions": os.path.join(MesaJob.get_project_directory(), MesaJob.MESA_JOB_FILE_EXCLUSIONS),
-            "domain_fqdn": settings.domain_fqdn,
-            "domain_controller": settings.domain_controller,
-            "domain_user": settings.domain_user,
-            "domain_password": settings.domain_password,
-            "neo4j_user": settings.neo4j_user,
-            "neo4j_password": settings.neo4j_password,
             "customer_name": settings.customer_name,
             "customer_initials": settings.customer_initials,
         })
