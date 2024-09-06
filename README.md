@@ -21,7 +21,7 @@ python manage.py loaddata mesa/fixtures/mesajobs.json
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/C=/ST=/L=/O=/OU=/CN="
 
 # start the web application
-python manage.py runsslserver --certificate cert.pem --key key.pem 0.0.0.0:8080
+python manage.py runserver --certificate cert.pem --key key.pem 0.0.0.0:8080
 ```
 
 # Migrations
