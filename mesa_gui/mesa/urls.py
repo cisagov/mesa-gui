@@ -39,6 +39,7 @@ urlpatterns = [
     path('jobs/<int:job_id>/delete-data', views.job_delete_data, name="job_delete_data"),
     path('jobs/<int:job_id>/download-data', views.job_download_data, name="job_download_data"),
     path('jobs/generate_report', views.job_generate_report, name="job_generate_report"),
+    path('jobs/generate_json', views.job_generate_json, name="job_generate_json"),
     path('settings', views.settings, name="settings"),
     path('demo', views.demo, name="demo")
 ]
