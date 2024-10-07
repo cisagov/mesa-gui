@@ -134,25 +134,16 @@ def job_generate_report(request):
         settings = Settings.get_settings()
         zip_file_path = f"/root/.mesa/projects/output/{settings.project_name}/customer_deliverable/{settings.customer_initials}-Customer-Report.zip"
         
-        if os.path.exists(zip_file_path) and os.path.getsize(zip_file_path) > 0:
-            file = open(zip_file_path, 'rb')
-            response = FileResponse(file, as_attachment=True, filename=smart_str(os.path.basename(zip_file_path)))
-            return response
-        else:
-            for job in jobs:
-                if job.status != MesaJob.MESA_JOB_STATUS_COMPLETE and job.name != MesaJob.MESA_JOB_ALL_CHECKS_NAME:
-                    return JsonResponse({'code': '409', 'status': f'{job.name} is not complete'})
-            
-            # Run the report generator function of MESA-Toolkit
-            process = subprocess.Popen(f"MESA-Toolkit --project-name {settings.project_name} --customer-name '{settings.customer_name}' --customer-initials {settings.customer_initials} -o report_generator", shell=True, cwd=MesaJob.get_job_directory())
-            process.wait() # Wait for the command to complete
+        # Run the report generator function of MESA-Toolkit
+        process = subprocess.Popen(f"MESA-Toolkit --project-name {settings.project_name} --customer-name '{settings.customer_name}' --customer-initials {settings.customer_initials} -o report_generator", shell=True, cwd=MesaJob.get_job_directory())
+        process.wait() # Wait for the command to complete
 
-            # Now proceed to download the file
-            file = open(zip_file_path, 'rb')
-            response = FileResponse(file, as_attachment=True, filename=smart_str(os.path.basename(zip_file_path)))
-            # This is a temporary fix until the Download Report button has been updated
-            os.system("rm -rf /root/.mesa/projects/output")
-            return response
+        # Now proceed to download the file
+        file = open(zip_file_path, 'rb')
+        response = FileResponse(file, as_attachment=True, filename=smart_str(os.path.basename(zip_file_path)))
+        # This is a temporary fix until the Download Report button has been updated
+        os.system("rm -rf /root/.mesa/projects/output")
+        return response
     else:
         return JsonResponse({"status": "404"})
 
