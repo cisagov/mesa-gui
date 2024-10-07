@@ -7,6 +7,7 @@ cd mesa-gui
 # create virtual environment
 python3 -m venv venv
 . ./venv/bin/activate
+
 # install mesa-toolkit
 pip install -e .
 
@@ -15,13 +16,18 @@ cd mesa_gui
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py loaddata mesa/fixtures/mesajobs.json
-python manage.py runserver
+
+# generate a self-signed SSL certificate
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/C=/ST=/L=/O=/OU=/CN="
+
+# start the web application
+python manage.py runsslserver --certificate cert.pem --key key.pem 0.0.0.0:8080
 ```
 
 # Migrations
 ```bash
 python manage.py makemigrations mesa -n <name_of_file>
-python manage.py sqlmigrate mesa 0008
+python manage.py sqlmigrate mesa 0011
 python manage.py migrate
 ```
 
