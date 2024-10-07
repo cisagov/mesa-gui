@@ -16,12 +16,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-def find_static_root():
-    for root, dirs, files in os.walk(BASE_DIR):
-        if "mesa_gui" in root and "static_files" in dirs:
-            return os.path.join(root, "static_files")
-    return None
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -126,9 +120,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_ROOT = find_static_root()
-if not STATIC_ROOT:
-    raise Exception("Error: 'static_files' directory not found")
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
 STATIC_URL = 'static/'
 
 # Default primary key field type
