@@ -101,7 +101,7 @@ def job_generate_json(request):
         jobs = MesaJob.objects.filter()
         pid = "N/A"
         settings = Settings.get_settings()
-        zip_file_path = f"/root/.mesa/projects/output/{settings.project_name}/customer_deliverable/{settings.customer_initials}-Customer-Json.zip"
+        zip_file_path = f"/root/.mesa/projects/output/{settings.project_name}/customer_deliverable/{settings.project_name}-mesa-json-data.zip"
 
         if os.path.exists(zip_file_path) and os.path.getsize(zip_file_path) > 0:
             file = open(zip_file_path, 'rb')
