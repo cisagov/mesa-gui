@@ -16,7 +16,7 @@ cd mesa-gui
 python3 -m venv venv
 . ./venv/bin/activate
 
-# install mesa-toolkit
+# install mesa-gui
 pip install -e .
 
 # run the application
