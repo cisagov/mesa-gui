@@ -205,6 +205,26 @@ Use the `Download Report` button to download an HTML and PDF report that summari
 
 ![image](https://github.com/user-attachments/assets/88373564-6d66-4c17-a7c9-18a833f52325)
 
+The reports can be found in the `report` directory within the downloaded zip file:
+
+![image](https://github.com/user-attachments/assets/89597eb2-d4aa-4d7a-a2d1-dd9a90059ccf)
+
+The HTML report will provide a summary of the scan results to the user with hyperlinks that will take the user to the raw scan results for further inspection:
+>[!NOTE]
+>The hyperlinks in the result summary section will break if the HTML report is removed from the reports directory. The PDF report is a standalone copy of the HTML report and can be used for situations where only summary statistics are requested.
+
+![image](https://github.com/user-attachments/assets/ed0f9e3a-52a5-4d79-940b-3463997d22b4)
+
+Links to CISA resources can be found at the top of the HTML report under the `CISA Resources` drop down. These links provide users with information regarding CISA specific services and resources:
+
+![image](https://github.com/user-attachments/assets/a1da7ace-09c4-4adf-b62a-16e59f28f520)
+
+Finally, the `Quick Access` drop down provides the user with direct access to the raw scan data collected from the MESA scans:
+>[!NOTE]
+>The quick access links will break if the HTML report is removed from the reports directory. These quick access links are intended to provide easy navigation through the raw scan directories located in the downloaded customer report zip file.
+
+![image](https://github.com/user-attachments/assets/22b07a37-12f8-4b7d-9a2f-309aa0026a49)
+
 ### JSON Summary Data
 
 ![image](https://github.com/user-attachments/assets/15e25429-9814-4e66-9eca-1defe0c5b0d0)
