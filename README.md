@@ -1,6 +1,6 @@
 # MESA GUI
 
-Micro Evaluation Security Assessments (MESAs) are designed to provide organizations with insights into their internal security posture. The MESA-GUI serves as a user-friendly front-end for the MESA-Toolkit command-line interface (https://github.com/cisagov/mesa-toolkit/). This project relies on the successful installation of the MESA-Toolkit and is not intended to function as a standalone application.
+Micro Evaluation Security Assessments (MESAs) are designed to provide organizations with insights into their internal security posture. The MESA-GUI serves as a user-friendly front-end for the [MESA-Toolkit](https://github.com/cisagov/mesa-toolkit/) command-line interface. This project relies on the successful installation of the MESA-Toolkit and is not intended to function as a standalone application.
 
 It is important to note that MESAs are not designed to furnish a comprehensive understanding of the entire internal environment. Instead, their purpose is to equip organizations with the essential information needed to establish a foundational security posture. This emphasis revolves around safeguarding against commonly exploited misconfigurations and vulnerabilities. MESAs lay the groundwork for organizations to initiate the process of fortifying their security stance, ensuring a proactive defense against prevalent risks.
 
@@ -86,13 +86,13 @@ https://[IP Address]:8080
 ```
 ![image](https://github.com/user-attachments/assets/d804ab89-2d21-467a-b80e-7bf3082ea614)
 
-Login to the application using the credentials created during the installation process to access the MESA dashboard:
+Login to the application using the credentials created during the installation process to access the MESA dashboard.
 
 ![image](https://github.com/user-attachments/assets/e5a0d4f8-2dc7-4448-99e6-788c0d08e8b6)
 
 Configuring Scan Settings
 --------------
-Prior to running any scans, browse to the settings tab to configure the scan scope and pertinent deliverable variables:
+Prior to running any scans, browse to the settings tab to configure the scan scope and pertinent deliverable variables.
 
 ![image](https://github.com/user-attachments/assets/3b13e3bd-ab9e-4fae-b5e4-3d2e28b5af61)
 
@@ -108,7 +108,7 @@ Update the following variables in the settings tab:
 
 MESA Job Definitions
 --------------
-Once the settings have been configured browse to the dashboard tab to begin running the scans:
+Once the settings have been configured browse to the dashboard tab to begin running the scans.
 
 ![image](https://github.com/user-attachments/assets/1091208a-12a2-463e-81aa-960d47dc9497)
 
@@ -132,7 +132,7 @@ MESA jobs can be ran individually or automatically in sequential order. To run t
 
 ![image](https://github.com/user-attachments/assets/8b974fc0-6d7a-474f-9c9f-be7b21c0f16d)
 
-In order to run the scans in sequential order starting with the `Host Discovery Scans`, simply click the `Run All Checks` button located on the dashboard:
+In order to run the scans in sequential order starting with the `Host Discovery Scans`, simply click the `Run All Checks` button located on the dashboard.
 
 ![image](https://github.com/user-attachments/assets/c5c890a3-6702-4a6c-9004-419d564e82b8)
 
@@ -189,11 +189,11 @@ After selecting the ![image](https://github.com/user-attachments/assets/4c1ecc82
 The MESA-GUI was designed to provide three types of deliverables for users. 
 
 ### Raw Scan Data
-Use the `Download All` button to download the raw scan results for all completed scans. This can be useful when wanting to manually parse through the various results from the tools used by the MESA-Toolkit:
+Use the `Download All` button to download the raw scan results for all completed scans. This can be useful when wanting to manually parse through the various results from the tools used by the MESA-Toolkit.
 
 ![image](https://github.com/user-attachments/assets/8dbcbd58-d0ab-438c-a8e4-f4919264c9d3)
 
-The contents of the zip file will be structured according to the scans that were performed and the finding type associated with the results:
+The contents of the zip file will be structured according to the scans that were performed and the finding type associated with the results.
 
 ![image](https://github.com/user-attachments/assets/95de4ef7-879b-4546-a7e5-5d2d62aa583b)
 
@@ -201,33 +201,37 @@ The contents of the zip file will be structured according to the scans that were
 >The contents of the zip file will vary depending on the network scanned. The screenshot above is just an example of the data structure.
 
 ### Summary HTML and PDF Reports
-Use the `Download Report` button to download an HTML and PDF report that summarizes the scan results for the user:
+Use the `Download Report` button to download an HTML and PDF report that summarizes the scan results for the user.
 
 ![image](https://github.com/user-attachments/assets/88373564-6d66-4c17-a7c9-18a833f52325)
 
-The reports can be found in the `report` directory within the downloaded zip file:
+The reports can be found in the `report` directory within the downloaded zip file.
 
 ![image](https://github.com/user-attachments/assets/89597eb2-d4aa-4d7a-a2d1-dd9a90059ccf)
 
-The HTML report will provide a summary of the scan results to the user with hyperlinks that will take the user to the raw scan results for further inspection:
+The HTML report will provide a summary of the scan results, with hyperlinks that direct the user to the raw scan data for further inspection.
 >[!NOTE]
 >The hyperlinks in the result summary section will break if the HTML report is removed from the reports directory. The PDF report is a standalone copy of the HTML report and can be used for situations where only summary statistics are requested.
 
 ![image](https://github.com/user-attachments/assets/ed0f9e3a-52a5-4d79-940b-3463997d22b4)
 
-Links to CISA resources can be found at the top of the HTML report under the `CISA Resources` drop down. These links provide users with information regarding CISA specific services and resources:
+Links to CISA resources are available at the top of the HTML report under the `CISA Resources` dropdown, providing users with information on CISA services and resources.
 
 ![image](https://github.com/user-attachments/assets/a1da7ace-09c4-4adf-b62a-16e59f28f520)
 
-Finally, the `Quick Access` drop down provides the user with direct access to the raw scan data collected from the MESA scans:
+Finally, the `Quick Access` drop down provides the user with direct access to the raw scan data collected from the MESA scans.
 >[!NOTE]
 >The quick access links will break if the HTML report is removed from the reports directory. These quick access links are intended to provide easy navigation through the raw scan directories located in the downloaded customer report zip file.
 
 ![image](https://github.com/user-attachments/assets/22b07a37-12f8-4b7d-9a2f-309aa0026a49)
 
 ### JSON Summary Data
-
+Use the 'Download JSON Report` button to generate a JSON file that summarizes the scan results.  
 ![image](https://github.com/user-attachments/assets/15e25429-9814-4e66-9eca-1defe0c5b0d0)
+
+The JSON data will provide an anonymized summary of the various scans performed. This file can be used to track metrics, showing the progressive reduction in findings as issues are mitigated from one scan to the next.
+
+![image](https://github.com/user-attachments/assets/627c1b57-4a6f-4aab-9143-cff2947c7f37)
 
 ## Migrations
 >[!CAUTION]
