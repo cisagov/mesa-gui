@@ -10,7 +10,18 @@ It is important to note that MESAs are not designed to furnish a comprehensive u
 
 Once the [MESA-Toolkit](https://github.com/cisagov/mesa-toolkit/) has been successfully installed on a `Debian 12.7.0` instance, the following steps can be used to manually setup the MESA-GUI.
 
-1. **Clone the MESA-GUI repository**
+1. **Install the MESA-Toolkit**
+
+   Clone the mesa-toolkit repository into the /opt/ directory to download the MESA-TOOLKIT source code locally and run the `mesa-install-tools.sh` bash script to install necessary dependencies:
+
+```bash
+cd /opt/
+sudo git clone https://github.com/cisagov/mesa-toolkit
+cd mesa-toolkit
+sudo bash mesa-install-tools.sh -vm
+```
+   
+2. **Clone the MESA-GUI repository**
    
    Clone this repository into the /opt/ directory to download the MESA-GUI source code locally:
 
@@ -20,7 +31,7 @@ sudo git clone https://github.com/cisagov/mesa-gui
 cd mesa-gui
 ```
 
-2. **Source the MESA virtual environment**
+3. **Source the MESA virtual environment**
 
    Source the MESA virtual environment. This activates the environment, isolating the dependencies needed for the MESA-GUI to run:
 
@@ -28,7 +39,7 @@ cd mesa-gui
 source /opt/MESA-venv/bin/activate
 ```
 
-3. **Install the MESA-GUI**
+4. **Install the MESA-GUI**
    
    Install the MESA-GUI using pip in editable mode (-e flag). This allows modifications to the source code without requiring a reinstall:
 
@@ -36,7 +47,7 @@ source /opt/MESA-venv/bin/activate
 pip install -e .
 ```
 
-4. **Apply database migrations**
+5. **Apply database migrations**
 
    Run the migrate command to apply any necessary database schema changes:
    
@@ -45,7 +56,7 @@ cd mesa_gui
 python manage.py migrate
 ```
 
-5. **Create an administrative user**
+6. **Create an administrative user**
 
   Create a superuser account for accessing the web application:
 
@@ -53,7 +64,7 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-6. **Load MESA jobs data**
+7. **Load MESA jobs data**
 
    Load the MESA jobs data into the Django database. These fixtures define the job functions that the MESA-GUI will use for scanning activities:
 
@@ -61,7 +72,7 @@ python manage.py createsuperuser
 python manage.py loaddata mesa/fixtures/mesajobs.json
 ```
 
-7. **Generate a self-signed SSL certificate**
+8. **Generate a self-signed SSL certificate**
 
   Generate a self-signed SSL certificate to securely host the MESA-GUI over HTTPS, ensuring encrypted communication:
 
@@ -69,7 +80,7 @@ python manage.py loaddata mesa/fixtures/mesajobs.json
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/C=/ST=/L=/O=/OU=/CN="
 ```
 
-8. **Start the web application**
+9. **Start the web application**
 
    Start the web application using the SSL certificate:
 
@@ -106,6 +117,9 @@ Update the following variables in the settings tab:
 | In-Scope Systems | The individual IP addresses or cidr blocks to be included in scanning activity | none | yes |
 | Excluded Systems | The individual IP addresses or cidr blocks to be excluded from scanning activity | none | no |
 
+>[!NOTE]
+>Required variables indicate fields that must be populated before running scans. Failure to populate the indicated fields will result in empty scan data.
+
 MESA Job Definitions
 --------------
 Once the settings have been configured browse to the dashboard tab to begin running the scans.
@@ -122,13 +136,16 @@ Once the settings have been configured browse to the dashboard tab to begin runn
 | Vulnerability Scan | Performs vulnerability scans using nuclei to identify critical, high, and medium findings. | no |
 | Full Port Scan | Performs an nmap full port scan against the provided scope. | no |
 
+>[!NOTE]
+>Some scans, such as `SMB Signing Checks`, `Web Application Enumeration`, and `Encryption Check`, rely on the results from `Host Discovery Scans`, which is why they are required. 
+
 Running MESA Jobs
 --------------
 
 MESA jobs can be ran individually or automatically in sequential order. To run the scans individually simply select the ![image](https://github.com/user-attachments/assets/208c9b72-7468-4421-a2f0-f9c7434b352f) button for the job you would like to run. 
 
 >[!IMPORTANT]
->It is recommended to run the `Host Discovery Scans` job prior to running any other scans. This will ensure that a `live hosts` file is generated, expediting the time spent performing scans.
+>It is required to run the `Host Discovery Scans` job prior to running any other scans. This will ensure that a `live hosts` file is generated, expediting the time spent performing scans.
 
 ![image](https://github.com/user-attachments/assets/8b974fc0-6d7a-474f-9c9f-be7b21c0f16d)
 
