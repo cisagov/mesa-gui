@@ -44,7 +44,7 @@ source /opt/MESA-venv/bin/activate
    Install the MESA-GUI using pip in editable mode (-e flag). This allows modifications to the source code without requiring a reinstall:
 
 ```bash
-pip install -e .
+sudo pip install -e .
 ```
 
 5. **Apply database migrations**
@@ -53,7 +53,7 @@ pip install -e .
    
 ```bash
 cd mesa_gui
-python manage.py migrate
+sudo python manage.py migrate
 ```
 
 6. **Create an administrative user**
@@ -61,7 +61,7 @@ python manage.py migrate
   Create a superuser account for accessing the web application:
 
 ```bash
-python manage.py createsuperuser
+sudo python manage.py createsuperuser
 ```
 
 7. **Load MESA jobs data**
@@ -69,7 +69,7 @@ python manage.py createsuperuser
    Load the MESA jobs data into the Django database. These fixtures define the job functions that the MESA-GUI will use for scanning activities:
 
 ```bash
-python manage.py loaddata mesa/fixtures/mesajobs.json
+sudo python manage.py loaddata mesa/fixtures/mesajobs.json
 ```
 
 8. **Generate a self-signed SSL certificate**
@@ -77,7 +77,7 @@ python manage.py loaddata mesa/fixtures/mesajobs.json
   Generate a self-signed SSL certificate to securely host the MESA-GUI over HTTPS, ensuring encrypted communication:
 
 ```bash
-openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/C=/ST=/L=/O=/OU=/CN="
+sudo openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/C=/ST=/L=/O=/OU=/CN="
 ```
 
 9. **Start the web application**
@@ -85,7 +85,7 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
    Start the web application using the SSL certificate:
 
 ```bash
-python manage.py runsslserver --certificate cert.pem --key key.pem 0.0.0.0:8080
+sudo python manage.py runsslserver --certificate cert.pem --key key.pem 0.0.0.0:8080
 ```
 
 ## Navigating the MESA-GUI
