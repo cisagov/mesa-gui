@@ -36,6 +36,7 @@ cd mesa-gui
    Source the MESA virtual environment. This activates the environment, isolating the dependencies needed for the MESA-GUI to run:
 
 ```bash
+sudo su
 source /opt/MESA-venv/bin/activate
 ```
 
@@ -44,7 +45,7 @@ source /opt/MESA-venv/bin/activate
    Install the MESA-GUI using pip in editable mode (-e flag). This allows modifications to the source code without requiring a reinstall:
 
 ```bash
-sudo pip install -e .
+pip install -e .
 ```
 
 5. **Apply database migrations**
@@ -53,7 +54,7 @@ sudo pip install -e .
    
 ```bash
 cd mesa_gui
-sudo python manage.py migrate
+python manage.py migrate
 ```
 
 6. **Create an administrative user**
@@ -61,7 +62,7 @@ sudo python manage.py migrate
   Create a superuser account for accessing the web application:
 
 ```bash
-sudo python manage.py createsuperuser
+python manage.py createsuperuser
 ```
 
 7. **Load MESA jobs data**
@@ -69,7 +70,7 @@ sudo python manage.py createsuperuser
    Load the MESA jobs data into the Django database. These fixtures define the job functions that the MESA-GUI will use for scanning activities:
 
 ```bash
-sudo python manage.py loaddata mesa/fixtures/mesajobs.json
+python manage.py loaddata mesa/fixtures/mesajobs.json
 ```
 
 8. **Generate a self-signed SSL certificate**
@@ -77,7 +78,7 @@ sudo python manage.py loaddata mesa/fixtures/mesajobs.json
   Generate a self-signed SSL certificate to securely host the MESA-GUI over HTTPS, ensuring encrypted communication:
 
 ```bash
-sudo openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/C=/ST=/L=/O=/OU=/CN="
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/C=/ST=/L=/O=/OU=/CN="
 ```
 
 9. **Start the web application**
@@ -85,7 +86,7 @@ sudo openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 
    Start the web application using the SSL certificate:
 
 ```bash
-sudo python manage.py runsslserver --certificate cert.pem --key key.pem 0.0.0.0:8080
+python manage.py runsslserver --certificate cert.pem --key key.pem 0.0.0.0:8080
 ```
 
 ## Navigating the MESA-GUI
